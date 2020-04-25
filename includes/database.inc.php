@@ -1,11 +1,9 @@
 <?php
-Class DatabaseAccessLayer {
-    // Properties
+Class Database { # Written from scratch, I copied over ~10-15% or so of the code from the previous https://github.com/VirtualScope/AngryNerds-Master/blob/master/includes/db_access_layer.php but I wrote each of these public methods from scratch.
     private $connection;
 
     function __construct($db_host, $db_user, $db_pass, $db_name)
     {  
-        // Connect to DB
         $this->connection = new mysqli($db_host, $db_user, $db_pass, $db_name);
         $this->connection->set_charset("utf8");
         if ($this->connection->connect_errno) { # https://www.php.net/manual/en/mysqli.error.php
@@ -33,17 +31,20 @@ Class DatabaseAccessLayer {
         $sql = "SELECT id,fname,lname,email,`admin` FROM `users` WHERE id=$id ORDER BY last_log_in ASC";
         return $this->query($sql);
     }
-    function add_user($username, $password, $firstname, $lastname)
+    function add_user($firstname, $lastname, $email, $pass, $admin, $active, $notes)
     {
-        $creation_date = time();
-
-        $sql = "INSERT INTO `user_post`(`username`, `password`, `firstname`, `lastname`, `creation_date`) 
+        $now = time();
+        $hash = password_hash($pass, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO `users`(`fname`, `lname`, `email`, `pass`, `admin`, `last_log_in`, `active`, `notes`) 
         VALUES (    
-        '" . $username . "',
-        '" . $password . "',
-        " . $firstname . ", 
-        " . $lastname . ", 
-        '" . $creation_date . "'
+        '" . $firstname . "',
+        '" . $lastname . "',
+        '" . $email . "', 
+        '" . $hash . "', 
+        '" . $admin . "',
+        " . $now . ", 
+        '" . $active . "', 
+        '" . $notes . "'
         )";
         return $this->query($sql);
     }
@@ -64,4 +65,4 @@ Class DatabaseAccessLayer {
 
 }
 
-$Database = new DatabaseAccessLayer("127.0.0.1", "root", "", "angrynerdsmaster");
+$Database = new Database("127.0.0.1", "root", "", "angrynerdsmaster");

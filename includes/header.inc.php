@@ -3,6 +3,7 @@ include('env.inc.php');
 include('session.inc.php');
 include('secured.inc.php');
 include('database.inc.php');
+include('valid.inc.php');
 # Selected Page NavBar Code
 
 ?>

@@ -1,8 +1,8 @@
 <?php
 include('env.inc.php');
-include('includes/session.inc.php');
-include('includes/secured.inc.php');
-
+include('session.inc.php');
+include('secured.inc.php');
+include('database.inc.php');
 # Selected Page NavBar Code
 
 ?>

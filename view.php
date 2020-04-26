@@ -40,8 +40,7 @@ if ($page === 1) $back_button = false;
 if ($page >= $max_number_of_pages) $next_button = false;
 
 ?>
-<div class="row d-flex justify-content-center"> <!-- https://mdbootstrap.com/docs/jquery/utilities/horizontal-align/-->
-<div class="text-center col-18">
+
 <h1 class="mt-5">Use This Page to Manually View Data</h1><br><br>
 
 <a role="button" style="margin-bottom: 10px" 
@@ -81,8 +80,6 @@ href="<?php echo "./view.php?page=" . ($page + 1)?>">Next</a>
     <?php endwhile;?>
   </tbody>
 </table>
-  </div>
-  </div>
 <?php
 include("includes/footer.inc.php");
 ?>

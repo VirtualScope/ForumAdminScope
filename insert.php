@@ -78,8 +78,7 @@ if (isset($_SESSION["error"]))
         </form>
 <?php # ***END***   SOURCED FROM INTERNET APPLICATION CLASS https://github.com/VirtualScope/AngryNerds-Master/commit/d963dda463514c5a4c16fcd211ca68b07a3f4f48 ?>
 
-    </div>
-</div>
+
 <?php
 function getPOSTInputs($Database)
 {
@@ -108,7 +107,7 @@ function getPOSTInputs($Database)
   array_push($results, boolval(preg_match($GLOBALS['PASSWORD_VALID'], $inputPassword)));
   array_push($results, boolval(preg_match($GLOBALS['NOTES_VALID'], $notes)));
   # ***END*** CODE SOURCED FROM: https://github.com/VirtualScope/AngryNerds-Master/commit/d963dda463514c5a4c16fcd211ca68b07a3f4f48
-  array_push($results, boolval(preg_match("/^(0)|(1)$/", $isAdmin)));
+  array_push($results, boolval(preg_match("/^(0)|(1)|(2)$/", $isAdmin)));
   array_push($results, boolval(preg_match("/^(yes)|(no)$/", $isActive)));
   # ***START*** CODE SOURCED FROM: https://github.com/VirtualScope/AngryNerds-Master/commit/d963dda463514c5a4c16fcd211ca68b07a3f4f48
   if (in_array(false, $results) === true) return "Invalid input in one or more fields!"; # Client side gives instant feedback, this is to stop bad clients.

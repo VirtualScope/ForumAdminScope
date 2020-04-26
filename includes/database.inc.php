@@ -48,7 +48,12 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
         )";
         return $this->query($sql);
     }
-
+    function update_user_by_id($id, $firstname, $lastname, $email, $pass, $admin, $active, $notes)
+    {
+        $hash = password_hash($pass, PASSWORD_DEFAULT);
+        $sql = "UPDATE `users` SET `fname`=$firstname, `lname`=$lastname, `email`=$email, `pass`=$hash, `admin`=$admin, `active`=$active, `notes`=$notes WHERE `id`=$id";
+        return $this->query($sql);
+    }
     function check_credentials($inputEmail, $inputPassword)
     {
         $sql = "SELECT * FROM `users` WHERE email='$inputEmail' AND pass='$inputPassword'";

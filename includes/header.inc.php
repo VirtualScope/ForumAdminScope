@@ -47,9 +47,9 @@ include('valid.inc.php');
         <li class="nav-item <?php if ($page === "update") echo "active"?>">
           <a class="nav-link" href="update.php">Update</a>
         </li>
-        <li class="nav-item <?php if ($page === "delete") echo "active"?>">
+        <!--<li class="nav-item <?php if ($page === "delete") echo "active"?>">
           <a class="nav-link" href="delete.php">Delete</a>
-        </li>
+        </li>-->
         <!--<li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>-->
@@ -69,3 +69,5 @@ include('valid.inc.php');
   <!-- Begin page content -->
 <main role="main" class="flex-shrink-0">
   <div class="container">
+  <div class="row d-flex justify-content-center"> <!-- https://mdbootstrap.com/docs/jquery/utilities/horizontal-align/-->
+<div class="text-center col-18">

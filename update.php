@@ -115,4 +115,5 @@ function getPOSTInputs($id, $Database)
   if ($worked) return ""; # Just return if it works.
   else return "Database Error"; # Error.
 }
+
 ?>

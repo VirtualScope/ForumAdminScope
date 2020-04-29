@@ -103,41 +103,33 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
         $sql = "SELECT * FROM users WHERE user_id = $id";
         return $this->query($sql);
     }
-    function update_user_by_id($id, $current_password, $fname, $lname, $pass, $notes)
+    function update_user_by_id($id, $fname, $lname, $pass, $notes)
     {
-        $response = $this->check_credentials_by_id($id, $current_password);
-        if ($response["success"])
-        {
-            $active = "yes";            
-            $_fname = "";
-            $_lname = "";
-            $_pass  = "";
-            $_notes = "";
-    
-            $returned = $this->get_user($id);
-            $result = $returned->fetch_assoc();
+        $active = "yes";            
+        $_fname = "";
+        $_lname = "";
+        $_pass  = "";
+        $_notes = "";
 
-            $old_fname = $result["fname"];
-            $old_lname = $result["lname"];
-            $old_pass  = $result["pass"];
-            $old_notes = $result["notes"];
-    
-            $_fname = ($fname === "")? $old_fname : $fname;
-            $_lname = ($lname === "")? $old_lname : $lname;
-    
-            $_pass = ($pass === "")? $old_pass : password_hash($pass, PASSWORD_DEFAULT);
-    
-            $_notes = ($notes === "")? $old_notes : $notes;
-    
-            $sql = "UPDATE `users` SET `fname`='$_fname', `lname`='$_lname', `pass`='$_pass', `active`='$active', `notes`='$_notes' WHERE `id`=$id";
-            return $this->query($sql);
-        }
-        else
-        {
-            return null; # Null response means the current password failed.
-       #End ICS325
-        }
+        $returned = $this->get_user($id);
+        $result = $returned->fetch_assoc();
+
+        $old_fname = $result["fname"];
+        $old_lname = $result["lname"];
+        $old_pass  = $result["pass"];
+        $old_notes = $result["notes"];
+
+        $_fname = ($fname === "")? $old_fname : $fname;
+        $_lname = ($lname === "")? $old_lname : $lname;
+
+        $_pass = ($pass === "")? $old_pass : password_hash($pass, PASSWORD_DEFAULT);
+
+        $_notes = ($notes === "")? $old_notes : $notes;
+
+        $sql = "UPDATE `users` SET `fname`='$_fname', `lname`='$_lname', `pass`='$_pass', `active`='$active', `notes`='$_notes' WHERE `user_id`=$id";
+        return $this->query($sql);
     }
+       #End ICS325
 }
 
 $Database = new Database("127.0.0.1", "root", "", "ics311sp200204");

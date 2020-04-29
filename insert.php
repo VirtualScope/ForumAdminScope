@@ -21,7 +21,7 @@ if (isset($_SESSION["error"]))
 ?>
 <div class="row d-flex justify-content-center"> <!-- https://mdbootstrap.com/docs/jquery/utilities/horizontal-align/-->
     <div class="text-center col-18">
-        <h1 class="mt-5">Use This Page to Manually Insert Data</h1>
+        <h1 class="mt-5">Use This Page to Insert Data</h1>
             <?php if (isset($err))
                 echo "<div class=\"alert alert-danger\" role=\"alert\">$err</div>";
             else if (isset($happyMessage))

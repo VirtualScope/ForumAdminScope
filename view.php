@@ -67,7 +67,7 @@ href="<?php echo "./view.php?page=" . ($page + 1)?>">Next</a>
   <tbody>
     <?php 
     while($row = $result->fetch_assoc()):
-      $id = $row['id'];?>
+      $id = $row['user_id'];?>
        <tr>
        <th><a class="btn btn-primary" href="update.php?id=<?php echo $id?>" role="button">Update</a></th>
           <td> <?php echo $id ?> </td>

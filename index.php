@@ -41,7 +41,7 @@ include('includes/header.inc.php');
                 <div class="card-body">
                     <h5 class="card-title">Manage Comments</h5>
                     <p class="card-text">Need to delete someone's comment? This is for you!</p>
-                    <a href="#" class="btn btn-primary">Go to <b>Manage Comments</b> Page</a>
+                    <a href="comments.php" class="btn btn-primary">Go to <b>Manage Comments</b> Page</a>
                 </div>
             </div>
           </div>

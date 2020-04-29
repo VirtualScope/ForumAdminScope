@@ -14,7 +14,7 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
     function get_users($page, $limit) # Note pages start at 1.
     {
         $offset = ($page - 1) * $limit;
-        $sql = "SELECT * FROM `users` ORDER BY id ASC LIMIT $offset, $limit";
+        $sql = "SELECT * FROM `users` ORDER BY user_id ASC LIMIT $offset, $limit";
         return $this->query($sql);
     }
     function count_pages($limit) # Note pages start at 1.
@@ -26,13 +26,15 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
         $returnme = intval(ceil($row["COUNT(*)"] / $limit));
         return $returnme;
     }
-    function get_user_by_id($id)
+    function get_user_by_user_id($user_id)
     {
-        $sql = "SELECT id,fname,lname,email,`admin` FROM `users` WHERE id=$id ORDER BY last_log_in ASC";
+        $sql = "SELECT user_id,fname,lname,email,`admin` FROM `users` WHERE user_id=$user_id ORDER BY last_log_in ASC";
         return $this->query($sql);
     }
     function add_user($firstname, $lastname, $email, $pass, $admin, $active, $notes)
     {
+        if ($active === "yes") $_active = true;
+        else $_active = false;
         $now = time();
         $hash = password_hash($pass, PASSWORD_DEFAULT);
         $sql = "INSERT INTO `users`(`fname`, `lname`, `email`, `pass`, `admin`, `last_log_in`, `active`, `notes`) 
@@ -43,15 +45,15 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
         '" . $hash . "', 
         '" . $admin . "',
         " . $now . ", 
-        '" . $active . "', 
+        '" . $_active . "', 
         '" . $notes . "'
         )";
         return $this->query($sql);
     }
-    function update_user_by_id($id, $firstname, $lastname, $email, $pass, $admin, $active, $notes)
+    function update_user_by_user_id($user_id, $firstname, $lastname, $email, $pass, $admin, $active, $notes)
     {
         $hash = password_hash($pass, PASSWORD_DEFAULT);
-        $sql = "UPDATE `users` SET `fname`=$firstname, `lname`=$lastname, `email`=$email, `pass`=$hash, `admin`=$admin, `active`=$active, `notes`=$notes WHERE `id`=$id";
+        $sql = "UPDATE `users` SET `fname`=$firstname, `lname`=$lastname, `email`=$email, `pass`=$hash, `admin`=$admin, `active`=$active, `notes`=$notes WHERE `user_id`=$user_id";
         return $this->query($sql);
     }
     function check_credentials($inputEmail, $inputPassword)
@@ -59,15 +61,16 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
         $sql = "SELECT * FROM `users` WHERE email='$inputEmail' AND pass='$inputPassword'";
         return $this->query($sql);
     }
-    function delete_user_by_id($id)
+    function delete_user_by_id($user_id)
     {
-        $sql = "DELETE FROM `users` WHERE id='$id'";
+        $sql = "DELETE FROM `users` WHERE user_id='$user_id'";
         return $this->query($sql);
     }
     private function query($sql){
-        return $this->connection->query($sql); 
+        $me = $this->connection->query($sql); 
+        return $me;
     }
 
 }
 
-$Database = new Database("127.0.0.1", "root", "", "angrynerdsmaster");
+$Database = new Database("127.0.0.1", "root", "", "ics311sp200204");

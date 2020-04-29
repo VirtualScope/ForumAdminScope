@@ -43,10 +43,10 @@ include('valid.inc.php');
         </li>
         <li class="nav-item <?php if ($page === "insert") echo "active"?>">
           <a class="nav-link" href="insert.php">Insert</a>
-        </li>
+        </li><!--
         <li class="nav-item <?php if ($page === "update") echo "active"?>">
           <a class="nav-link" href="update.php">Update</a>
-        </li>
+        </li>-->
         <!--<li class="nav-item <?php if ($page === "delete") echo "active"?>">
           <a class="nav-link" href="delete.php">Delete</a>
         </li>-->

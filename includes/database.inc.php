@@ -17,10 +17,25 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
         $sql = "SELECT * FROM `users` ORDER BY user_id ASC LIMIT $offset, $limit";
         return $this->query($sql);
     }
+    function get_comments($page, $limit) # Note pages start at 1.
+    {
+        $offset = ($page - 1) * $limit;
+        $sql = "SELECT * FROM `comments` JOIN `users` ON users.user_id=comments.user_id LIMIT $offset, $limit";
+        return $this->query($sql);
+    }
     function count_pages($limit) # Note pages start at 1.
     {
         #$offset = ($page - 1) * $limit;
         $sql = "SELECT COUNT(*) FROM `users`";
+        $result = $this->query($sql);
+        $row = $result->fetch_assoc();
+        $returnme = intval(ceil($row["COUNT(*)"] / $limit));
+        return $returnme;
+    }
+    function count_pages_comments($limit) # Note pages start at 1.
+    {
+        #$offset = ($page - 1) * $limit;
+        $sql = "SELECT COUNT(*) FROM `comments`";
         $result = $this->query($sql);
         $row = $result->fetch_assoc();
         $returnme = intval(ceil($row["COUNT(*)"] / $limit));

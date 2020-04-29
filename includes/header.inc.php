@@ -54,7 +54,7 @@ include('valid.inc.php');
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>-->
       </ul>
-          <a class="nav-link" href="delete.php">Profile</a>
+          <a class="nav-link" href="#">Profile</a>
           <button type="button" class="btn btn-secondary" formaction="/logout.php">Logout</button>
 
         <!-- Code by me -->

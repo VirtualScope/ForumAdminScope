@@ -117,6 +117,69 @@ function getPOSTInputs($id, $Database)
   $worked = $Database->update_user_by_id($id, $inputFirstName, $inputLastName, $inputEmail, $inputPassword, $isAdmin, $isActive, $notes);
   if ($worked) return ""; # Just return if it works.
   else return "Database Error"; # Error.
-
+    # ***START*** CODE SOURCED FROM: https://github.com/VirtualScope/AngryNerds-Master/commit/d963dda463514c5a4c16fcd211ca68b07a3f4f48
+  function updateProfile($Database)
+  {
+      // Define variables.
+      $inputFirstName = "";
+      $inputLastName = "";
+      $inputCurrentPassword = "";
+      $inputNewPassword = "";
+      $notes = "";
+      $isAdmin = 0;
+      $results = [];
+  
+      // Collect input from the user.
+      if (isset($_POST['inputFirstName'])) $inputFirstName = trim($_POST['inputFirstName']);
+      if (isset($_POST['inputLastName'])) $inputLastName = trim($_POST['inputLastName']);
+      if (isset($_POST['inputCurrentPassword'])) $inputCurrentPassword = trim($_POST['inputCurrentPassword']);
+      if (isset($_POST['notes'])) $notes = trim($_POST['notes']);
+      if (isset($_POST['inputNewPassword'])) $inputNewPassword = trim($_POST['inputNewPassword']);
+  
+      // Input Regex Checking goes here.
+      if ($_POST['inputFirstName'] !== "") array_push($results, boolval(preg_match($GLOBALS["FIRST_NAME_VALID"], $inputFirstName)));
+      if ($_POST['inputLastName'] !== "") array_push($results, boolval(preg_match($GLOBALS["LAST_NAME_VALID"], $inputLastName)));
+      if ($_POST['notes'] !== "") array_push($results, boolval(preg_match($GLOBALS['NOTES_VALID'], $notes)));
+      if ($_POST['inputNewPassword'] !== "") array_push($results, boolval(preg_match($GLOBALS['PASSWORD_VALID'], $inputNewPassword)));
+      array_push($results, boolval(preg_match($GLOBALS['PASSWORD_VALID'], $inputCurrentPassword))); # This is required!
+  
+      function saveInput($results) 
+      {
+          $_SESSION["profileFirstNameRemember"] = $_POST['inputFirstName'];
+          $_SESSION["profileLastNameRemember"] = $_POST['inputLastName'];
+          $_SESSION["profileNotesRemember"] = $_POST['notes'];
+      }
+      if (in_array(false, $results) === true) # in_array returns TRUE if one or more FALSE values are found inside the array.
+      {
+          saveInput($results);
+          return "Invalid input in one or more fields!"; # Client side gives instant feedback, this is to stop bad clients.
+      }
+  
+      // Query the DB for that user.    
+      $result = $Database->update_user_by_id($_SESSION["userId"], $inputCurrentPassword, $inputFirstName, $inputLastName, $inputNewPassword, $notes);
+      if ($result === null) 
+          return "Password Incorrect!";
+      else if ($result)
+      {
+          unset($_SESSION['profileFirstNameRemember']);
+          unset($_SESSION['profileLastNameRemember']);
+          unset($_SESSION["profileNotesRemember"]); // No need to remember the user inputs anymore!
+          $_SESSION['fname'] = $inputFirstName;
+          $_SESSION['lname'] = $inputLastName;
+          echo "
+          <script>
+          window.onload = (event) => {
+              document.getElementById(\"profileName\").innerHTML = \"$inputFirstName\";
+            };
+          </script>";
+          return "Successfully Updated!";
+      }
+      else
+      {
+          saveInput($results);
+          return "An unknown error has occurred";
+      }
+  }
+    # ***END*** CODE SOURCED FROM: https://github.com/VirtualScope/AngryNerds-Master/commit/d963dda463514c5a4c16fcd211ca68b07a3f4f48
 }
 ?>

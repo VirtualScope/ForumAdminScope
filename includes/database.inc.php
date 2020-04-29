@@ -56,11 +56,6 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
         $sql = "UPDATE `users` SET `fname`=$firstname, `lname`=$lastname, `email`=$email, `pass`=$hash, `admin`=$admin, `active`=$active, `notes`=$notes WHERE `user_id`=$user_id";
         return $this->query($sql);
     }
-    function check_credentials($inputEmail, $inputPassword)
-    {
-        $sql = "SELECT * FROM `users` WHERE email='$inputEmail' AND pass='$inputPassword'";
-        return $this->query($sql);
-    }
     function delete_user_by_id($user_id)
     {
         $sql = "DELETE FROM `users` WHERE user_id='$user_id'";
@@ -70,7 +65,79 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
         $me = $this->connection->query($sql); 
         return $me;
     }
+    # FROM ICS325 Class Start
+    function check_credentials($inputEmail, $inputPassword) # Future TODO (outside of this class scope): Add additional checks to verify no two accounts use the same email!
+    {
+        $sql = "SELECT * FROM `users` WHERE email='$inputEmail'"; # We only need one row, lets just hope there is never more than one row!
+        $result = $this->query($sql);
+        $row = $result->fetch_assoc();
+        $hash = $row['pass'];
+        if (password_verify($inputPassword, $hash))
+        {
+            $row['success'] = true;
+            return $row;
+        }
+        else
+        {
+            return;
+        }
+    }
+    function check_credentials_by_id($id, $inputPassword)
+    {
+        $sql = "SELECT * FROM `users` WHERE user_id='$id'"; # We only need one row, lets just hope there is never more than one row!
+        $result = $this->query($sql);
+        $row = $result->fetch_assoc();
+        $hash = $row['pass'];
+        if (password_verify($inputPassword, $hash))
+        {
+            $row['success'] = true;
+            return $row;
+        }
+        else
+        {
+            return;
+        }
+    }
+    function get_user($id)
+    {
+        $sql = "SELECT * FROM users WHERE user_id = $id";
+        return $this->query($sql);
+    }
+    function update_user_by_id($id, $current_password, $fname, $lname, $pass, $notes)
+    {
+        $response = $this->check_credentials_by_id($id, $current_password);
+        if ($response["success"])
+        {
+            $active = "yes";            
+            $_fname = "";
+            $_lname = "";
+            $_pass  = "";
+            $_notes = "";
+    
+            $returned = $this->get_user($id);
+            $result = $returned->fetch_assoc();
 
+            $old_fname = $result["fname"];
+            $old_lname = $result["lname"];
+            $old_pass  = $result["pass"];
+            $old_notes = $result["notes"];
+    
+            $_fname = ($fname === "")? $old_fname : $fname;
+            $_lname = ($lname === "")? $old_lname : $lname;
+    
+            $_pass = ($pass === "")? $old_pass : password_hash($pass, PASSWORD_DEFAULT);
+    
+            $_notes = ($notes === "")? $old_notes : $notes;
+    
+            $sql = "UPDATE `users` SET `fname`='$_fname', `lname`='$_lname', `pass`='$_pass', `active`='$active', `notes`='$_notes' WHERE `id`=$id";
+            return $this->query($sql);
+        }
+        else
+        {
+            return null; # Null response means the current password failed.
+       #End ICS325
+        }
+    }
 }
 
 $Database = new Database("127.0.0.1", "root", "", "ics311sp200204");

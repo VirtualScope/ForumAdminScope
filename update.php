@@ -4,9 +4,9 @@ $page = "update";
 include('includes/header.inc.php');
 $err;
 $happyMessage;
-if (isset($_POST['id']) && preg_match("/^\d+$/", $_POST["id"]))
+if (isset($_REQUEST['id']) && preg_match("/^\d+$/", $_REQUEST["id"]))
 {
-    $_SESSION['id'] = $_POST['id'];
+    $_SESSION['id'] = $_REQUEST['id'];
 }
 
 if (isset($_SESSION["id"]) && preg_match("/^\d+$/", $_SESSION["id"])):
@@ -16,7 +16,9 @@ if (isset($_SESSION["id"]) && preg_match("/^\d+$/", $_SESSION["id"])):
     if (isset($postReturn) && $postReturn !== "")
         $err = $postReturn;
     else if (isset($postReturn) && $postReturn === "")
+    {
         $happyMessage = "Data Submitted!";
+    }
 
 ?>
 
@@ -62,7 +64,7 @@ if (isset($_SESSION["id"]) && preg_match("/^\d+$/", $_SESSION["id"])):
             <br>
             <select id="isAdmin" name="isAdmin" class="form-control" tab-index="-1">
                 <option value="0" selected>Normal User</option>
-                <option value="1">**Admin** (Danger! This grants the user priviledge to delete ANY class!)</option> <!--Intentionally dropdown to help prevent mistakes!-->
+                <option value="1">**Admin** (Danger!)</option> <!--Intentionally dropdown to help prevent mistakes!-->
             </select>
             <br>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">

@@ -60,8 +60,7 @@ href="<?php echo "./view.php?page=" . ($page + 1)?>">Next</a>
       <th scope="col">First Name</th>
       <th scope="col">Last Name</th>
       <th scope="col">Admin</th>
-      <th scope="col">Last Seen</th>
-      <th scope="col">Last Login</th>
+      <th scope="col">Active</th>
       <th scope="col">Notes</th>
 
       <th scope="col"></th>
@@ -79,7 +78,6 @@ href="<?php echo "./view.php?page=" . ($page + 1)?>">Next</a>
           <td> <?php echo $row['fname'] ?> </td>
           <td> <?php echo $row['lname'] ?> </td>
           <td> <?php echo $row['admin'] ?> </td>
-          <td> <?php echo $row['last_log_in'] ?> </td>
           <td> <?php echo $row['active'] ?> </td>
           <td> <?php echo $row['notes'] ?> </td>
 

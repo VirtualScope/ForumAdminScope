@@ -59,7 +59,7 @@ if (isset($_SESSION["error"]))
             <br>
             <select id="isAdmin" name="isAdmin" class="form-control" tab-index="-1">
                 <option value="0" selected>Normal User</option>
-                <option value="1">**Admin** (Danger! This grants the user priviledge to delete ANY class!)</option> <!--Intentionally dropdown to help prevent mistakes!-->
+                <option value="1">**Admin** (Danger!)</option> <!--Intentionally dropdown to help prevent mistakes!-->
             </select>
             <br>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">

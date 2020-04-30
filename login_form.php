@@ -12,7 +12,7 @@ if (isset($_POST['inputEmail']) && isset($_POST['inputPassword']))
   if ($result === null)
   {
     echo "<br><br><br>
-    <div class=\"alert alert-danger\" role=\"alert\">Invalid Password!</div>";
+    <div class=\"alert alert-danger\" role=\"alert\">Invalid Credentials!</div>";
   } else if ($result['success'] === true)
   {
     echo "<br><br><br><br><br>";

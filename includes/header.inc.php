@@ -45,7 +45,7 @@ if ($isLoggedIn):
         <li class="nav-item <?php if ($page === "insert") echo "active"?>">
           <a class="nav-link" href="insert.php">Insert User</a>
         </li>
-        <li class="nav-item <?php if ($page === "comment") echo "active"?>">
+        <li class="nav-item <?php if ($page === "comments") echo "active"?>">
           <a class="nav-link" href="comments.php">View Comments</a>
         </li>
         

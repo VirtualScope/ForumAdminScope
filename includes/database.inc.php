@@ -35,7 +35,7 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
     function count_pages_comments($limit) # Note pages start at 1.
     {
         #$offset = ($page - 1) * $limit;
-        $sql = "SELECT COUNT(*) FROM `comments`";
+        $sql = "SELECT COUNT(*) FROM `comments` JOIN `users` ON users.user_id=comments.user_id";
         $result = $this->query($sql);
         $row = $result->fetch_assoc();
         $returnme = intval(ceil($row["COUNT(*)"] / $limit));
@@ -43,7 +43,7 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
     }
     function get_user_by_user_id($user_id)
     {
-        $sql = "SELECT user_id,fname,lname,email,`admin` FROM `users` WHERE user_id=$user_id ORDER BY last_log_in ASC";
+        $sql = "SELECT user_id,fname,lname,email,`admin` FROM `users` WHERE user_id=$user_id ORDER BY user_id ASC";
         return $this->query($sql);
     }
     function add_user($firstname, $lastname, $email, $pass, $admin, $active, $notes)
@@ -76,6 +76,11 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
         $sql = "DELETE FROM `users` WHERE user_id='$user_id'";
         return $this->query($sql);
     }
+    function delete_comment_by_id($id)
+    {
+        $sql = "DELETE FROM `comments` WHERE comment_id='$id'";
+        return $this->query($sql);
+    }
     private function query($sql){
         $me = $this->connection->query($sql); 
         return $me;
@@ -83,7 +88,7 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
     # FROM ICS325 Class Start
     function check_credentials($inputEmail, $inputPassword) # Future TODO (outside of this class scope): Add additional checks to verify no two accounts use the same email!
     {
-        $sql = "SELECT * FROM `users` WHERE email='$inputEmail' AND admin=1"; # We only need one row, lets just hope there is never more than one row!
+        $sql = "SELECT * FROM `users` WHERE email='$inputEmail' AND admin=1 AND active=1"; # We only need one row, lets just hope there is never more than one row!
         $result = $this->query($sql);
         $row = $result->fetch_assoc();
         $hash = $row['pass'];

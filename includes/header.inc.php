@@ -39,6 +39,9 @@ if ($isLoggedIn):
         <li class="nav-item <?php if ($page === "home") echo "active"?>">
           <a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item <?php if ($page === "documentation") echo "active"?>">
+          <a class="nav-link" href="documentation.php">Help</a>
+        </li>
         <li class="nav-item <?php if ($page === "view") echo "active"?>">
           <a class="nav-link" href="view.php">View Users</a>
         </li>

@@ -4,7 +4,6 @@ include('session.inc.php');
 include('secured.inc.php');
 include('database.inc.php');
 include('valid.inc.php');
-# Selected Page NavBar Code
 
 ?>
 
@@ -51,23 +50,9 @@ if ($isLoggedIn):
         <li class="nav-item <?php if ($page === "comments") echo "active"?>">
           <a class="nav-link" href="comments.php">View Comments</a>
         </li>
-        
-        <!--
-        <li class="nav-item <?php if ($page === "update") echo "active"?>">
-          <a class="nav-link" href="update.php">Update</a>
-        </li>-->
-        <!--<li class="nav-item <?php if ($page === "delete") echo "active"?>">
-          <a class="nav-link" href="delete.php">Delete</a>
-        </li>-->
-        <!--<li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>-->
       </ul>
-          <!--<a class="nav-link" href="#">Profile</a>-->
           <button type="button" class="btn btn-secondary" onclick="document.location.href='includes/logout.php';">Logout</button>
 
-        <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
       </form>
     </div>
   </nav>
@@ -82,22 +67,8 @@ if ($isLoggedIn):
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        
-        <!--
-        <li class="nav-item <?php if ($page === "update") echo "active"?>">
-          <a class="nav-link" href="update.php">Update</a>
-        </li>-->
-        <!--<li class="nav-item <?php if ($page === "delete") echo "active"?>">
-          <a class="nav-link" href="delete.php">Delete</a>
-        </li>-->
-        <!--<li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>-->
       </ul>
           <button type="button" class="btn btn-secondary" formaction="/login.php">Login</button>
-
-        <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
       </form>
     </div>
   </nav>

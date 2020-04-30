@@ -1,6 +1,6 @@
 <?php
 $secured = true;
-$page = "view";
+$page = "comments";
 include('includes/header.inc.php');
 $set_page;
 $items_per_page = 4;

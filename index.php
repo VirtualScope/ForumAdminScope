@@ -1,5 +1,5 @@
 <?php
-$secured = false;
+$secured = true;
 $page = "home";
 include('includes/header.inc.php');
 ?>

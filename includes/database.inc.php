@@ -83,7 +83,7 @@ Class Database { # Written from scratch, I copied over ~10-15% or so of the code
     # FROM ICS325 Class Start
     function check_credentials($inputEmail, $inputPassword) # Future TODO (outside of this class scope): Add additional checks to verify no two accounts use the same email!
     {
-        $sql = "SELECT * FROM `users` WHERE email='$inputEmail'"; # We only need one row, lets just hope there is never more than one row!
+        $sql = "SELECT * FROM `users` WHERE email='$inputEmail' AND admin=1"; # We only need one row, lets just hope there is never more than one row!
         $result = $this->query($sql);
         $row = $result->fetch_assoc();
         $hash = $row['pass'];
